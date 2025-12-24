@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<table class="table">
+<tr><th>ID</th><th>User</th><th>Tipo</th><th>Stato</th><th>Azioni</th></tr>
+{% for r in requests %}
+<tr>
+<td>{{ r.id }}</td>
+<td>{{ r.user_id }}</td>
+<td>{{ r.vm_type }}</td>
+<td>{{ r.status }}</td>
+<td>
+{% if r.status=="PENDING" %}
+<a href="/admin/requests/{{ r.id }}/approve">Approve</a>
+<a href="/admin/requests/{{ r.id }}/reject">Reject</a>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

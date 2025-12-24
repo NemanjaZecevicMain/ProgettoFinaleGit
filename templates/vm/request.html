@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post">
+  <select name="vm_type" class="form-select mb-3">
+    <option value="bronze">
+      Bronze — 1 vCPU | 512 MB RAM | 2 GB Disco
+    </option>
+    <option value="silver">
+      Silver — 1 vCPU | 1 GB RAM | 4 GB Disco
+    </option>
+    <option value="gold">
+      Gold — 2 vCPU | 2 GB RAM | 6 GB Disco
+    </option>
+  </select>
+
+  <button class="btn btn-primary">Invia richiesta</button>
+</form>
+
+{% endblock %}

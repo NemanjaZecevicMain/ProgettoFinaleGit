@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+  <h2>Dashboard</h2>
+  <p>Benvenuto nel portale di creazione VM.</p>
+
+  <div class="list-group mt-4">
+    <!-- Richiesta nuova VM -->
+    <a href="/request" class="list-group-item list-group-item-action">
+      + Richiedi una nuova VM
+    </a>
+
+    <!-- Le mie richieste -->
+    <a href="/my-requests" class="list-group-item list-group-item-action">
+      ( ) Le mie richieste
+    </a>
+
+    
+  </div>
+
+</div>
+{% endblock %}

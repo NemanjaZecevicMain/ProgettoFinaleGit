@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Le mie VM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+        }
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #2c3e50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+        code {
+            background: #eee;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+        .status-PENDING { color: orange; font-weight: bold; }
+        .status-CREATED { color: blue; font-weight: bold; }
+        .status-READY   { color: green; font-weight: bold; }
+        .status-ERROR   { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h2>Le mie richieste VM</h2>
+
+{% if requests %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Status</th>
+        <th>VMID</th>
+        <th>Hostname</th>
+        <th>IP</th>
+        <th>Credenziali</th>
+        <th>Note</th>
+        <th>Data</th>
+    </tr>
+
+    {% for r in requests %}
+    <tr>
+        <td>{{ r.id }}</td>
+        <td>{{ r.vm_type }}</td>
+        <td class="status-{{ r.status }}">{{ r.status }}</td>
+        <td>{{ r.vmid or "-" }}</td>
+        <td>{{ r.hostname or "-" }}</td>
+        <td>
+            {% if r.ip_address %}
+                {{ r.ip_address }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if r.initial_user and r.initial_password %}
+                user: <code>{{ r.initial_user }}</code><br>
+                pass: <code>{{ r.initial_password }}</code><br>
+                ssh: <code>ssh {{ r.initial_user }}@{{ r.ip_address }}</code>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>{{ r.notes or "" }}</td>
+        <td>{{ r.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Nessuna richiesta trovata.</p>
+{% endif %}
+
+</body>
+</html>
