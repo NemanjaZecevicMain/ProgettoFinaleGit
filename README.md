@@ -16,11 +16,14 @@ Gli utenti possono richiedere una macchina standardizzata, che viene approvata d
   - 1 VM dedicata per ospitare il portale web
 - Token API ProxMox abilitato
 - Accesso SSH al nodo ProxMox
+- Eseguire comando per evitare problemi di quorum: pvect expected 1
 
 ### Lato VM del portale
 - Debian 12
 - Python 3.10+
 - Connessione di rete verso il nodo ProxMox
+- Utente: root
+- Password: Password&1
 
 ---
 
@@ -105,6 +108,30 @@ Il portale web è ospitato su una VM dedicata su ProxMox, creata e dimensionata 
 - Repository GitHub con codice e README
 - Cluster ProxMox completo (template + VM servizio)
 - Video dimostrativo con demo
+
+---
+
+
+## Nota sull'hosting
+Nota sull’hosting del portale nella VM
+
+Durante la fase finale del progetto sono stati riscontrati problemi di configurazione di rete e accesso SSH all’interno della VM dedicata all’hosting del portale web, legati alla gestione delle chiavi SSH e alla configurazione del percorso della chiave sul sistema.
+
+Per questo motivo il progetto viene consegnato completamente funzionante a livello di codice e logica applicativa, mentre l’esecuzione del portale sulla VM richiede i seguenti passaggi aggiuntivi:
+
+Generazione manuale di una chiave SSH sulla VM del portale:
+
+  ssh-keygen
+
+Copia della chiave pubblica sul nodo ProxMox:
+
+  ssh-copy-id root@IP_PROXMOX
+
+Aggiornamento del percorso della chiave privata nel file .env:
+
+  PROXMOX_SSH_KEY=/percorso/corretto/id_rsa
+
+Una volta completati questi passaggi, il portale può essere avviato correttamente anche dalla VM dedicata, mantenendo invariato il codice dell’applicazione.
 
 ---
 
