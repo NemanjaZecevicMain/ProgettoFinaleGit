@@ -117,7 +117,13 @@ def logout():
 @auth_bp.route("/dashboard")
 @login_required
 def dashboard():
+    # se admin → pagina admin
+    if current_user.role == "admin":
+        return redirect("/admin/requests")
+
+    # se utente normale → dashboard utente
     return render_template("dashboard.html")
+
 
 
 # Creazione richiesta VM (bronze / silver / gold)

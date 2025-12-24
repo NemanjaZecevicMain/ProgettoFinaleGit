@@ -34,7 +34,7 @@ class VMRequest(db.Model):
     initial_user = db.Column(db.String(80), nullable=True)
     initial_password = db.Column(db.String(100), nullable=True)
 
-    ip_address = db.Column(db.String(50), nullable=True)  # ✅ QUESTA MANCAVA
+    ip_address = db.Column(db.String(50), nullable=True)
 
     notes = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
